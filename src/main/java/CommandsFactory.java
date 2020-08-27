@@ -2,9 +2,8 @@ public class CommandsFactory {
     Memory memory;
     String string;
 
-    public CommandsFactory(String string, Memory memory){
+    public CommandsFactory(Memory memory){
         this.memory = memory;
-        this.string = string;
     }
 
     public Command createCommand(char action){

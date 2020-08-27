@@ -8,9 +8,16 @@ public class Compiler {
 
     public Compiler(String string){
         this.commands = new LinkedList<>();
-        this.commandsFactory = new CommandsFactory(string, new Memory());
+        this.string = string;
+        this.commandsFactory = new CommandsFactory(new Memory());
     }
 
+    public void compile(){
+        for(char c : string.toCharArray()){
+            Command command = commandsFactory.createCommand(c);
+            commands.add(command);
+        }
+    }
 
     public void execute(){
         for (Command command : commands){
