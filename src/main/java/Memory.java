@@ -1,5 +1,5 @@
 public class Memory {
-    private int pointer;
+    private int pointer = 15000;
     private byte[] memory;
 
     public Memory(){

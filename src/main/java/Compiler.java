@@ -7,17 +7,9 @@ public class Compiler {
     private CommandsFactory commandsFactory;
 
     public Compiler(String string){
-        this.commands = new LinkedList<>();
-        this.string = string;
-        this.commandsFactory = new CommandsFactory(new Memory());
+        commands = (new CommandsFactory(string, new Memory())).createCommands();
     }
 
-    public void compile(){
-        for(char c : string.toCharArray()){
-            Command command = commandsFactory.createCommand(c);
-            commands.add(command);
-        }
-    }
 
     public void execute(){
         for (Command command : commands){
