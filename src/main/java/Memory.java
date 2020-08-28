@@ -1,5 +1,5 @@
 public class Memory {
-    private int pointer = 15000;
+    private int pointer = Short.MAX_VALUE/2;
     private byte[] memory;
 
     public Memory(){
