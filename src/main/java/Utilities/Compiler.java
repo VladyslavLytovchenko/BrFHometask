@@ -1,11 +1,24 @@
 package Utilities;
 
 import Commands.*;
+import Factories.*;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class Compiler {
     private String instruction;
+    private static HashMap<Character, CommandProcessor> factories = new HashMap<>(){};
+
+    static {
+        factories.put('+', new IncrementCommandProcessor());
+        factories.put('-', new DecrementCommandProcessor());
+        factories.put('>', new NextCellCommandProcessor());
+        factories.put('<', new PrevCellCommandProcessor());
+        factories.put('[', new LoopBeginCommandProcessor());
+        factories.put(']', new LoopEndCommandProcessor());
+        factories.put('.', new PrintCommandProcessor());
+    }
 
     public Compiler(String instruction) {
         this.instruction = instruction;
@@ -14,34 +27,10 @@ public class Compiler {
     public Stack<Command> compile() {
         Stack<Stack<Command>> stack = new Stack<>();
         stack.push(new Stack<>());
+        CommandProcessor commandProcessor;
         for (char c : instruction.toCharArray()) {
-            switch (c) {
-                case ('+'):
-                    stack.peek().push(new IncrementCommand());
-                    break;
-                case ('-'):
-                    stack.peek().push(new DecrementCommand());
-                    break;
-                case ('>'):
-                    stack.peek().push(new NextCellCommand());
-                    break;
-                case ('<'):
-                    stack.peek().push(new PrevCellCommand());
-                    break;
-                case ('.'):
-                    stack.peek().push(new PrintCommand());
-                    break;
-                case ('['):
-                    LoopCommand loopCommand = new LoopCommand();
-                    stack.peek().push(loopCommand);
-                    stack.push(loopCommand.getCommands());
-                    break;
-                case (']'):
-                    stack.pop();
-                    break;
-                default:
-                    throw new RuntimeException("Illegal character in the algorithm");
-            }
+            commandProcessor = factories.get(c);
+            commandProcessor.processCommand(stack);
         }
         return stack.pop();
     }
