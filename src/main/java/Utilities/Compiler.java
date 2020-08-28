@@ -2,51 +2,48 @@ package Utilities;
 
 import Commands.*;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class Compiler {
-    private Memory memory;
     private String instruction;
 
-    public Compiler(String instruction, Memory memory) {
+    public Compiler(String instruction) {
         this.instruction = instruction;
-        this.memory = memory;
     }
 
-    public LinkedList<Command> compile() {
-        LinkedList<LinkedList<Command>> linkedList = new LinkedList<>();
-        linkedList.add(new LinkedList<>());
-        int loopNum = 0;
+    public Stack<Command> compile() {
+        Stack<Stack<Command>> stack = new Stack<>();
+        stack.push(new Stack<>());
         for (char c : instruction.toCharArray()) {
             switch (c) {
                 case ('+'):
-                    linkedList.get(loopNum).add(new IncrementCommand(memory));
+                    stack.peek().push(new IncrementCommand());
                     break;
                 case ('-'):
-                    linkedList.get(loopNum).add(new DecrementCommand(memory));
+                    stack.peek().push(new DecrementCommand());
                     break;
                 case ('>'):
-                    linkedList.get(loopNum).add(new NextCellCommand(memory));
+                    stack.peek().push(new NextCellCommand());
                     break;
                 case ('<'):
-                    linkedList.get(loopNum).add(new PrevCellCommand(memory));
+                    stack.peek().push(new PrevCellCommand());
                     break;
                 case ('.'):
-                    linkedList.get(loopNum).add(new PrintCommand(memory));
+                    stack.peek().push(new PrintCommand());
                     break;
                 case ('['):
-                    LoopCommand loopCommand = new LoopCommand(memory);
-                    linkedList.get(loopNum++).add(loopCommand);
-                    linkedList.add(loopCommand.getCommands());
+                    LoopCommand loopCommand = new LoopCommand();
+                    stack.peek().push(loopCommand);
+                    stack.push(loopCommand.getCommands());
                     break;
                 case (']'):
-                    linkedList.remove(loopNum--);
+                    stack.pop();
                     break;
                 default:
                     throw new RuntimeException("Illegal character in the algorithm");
             }
         }
-        return linkedList.get(0);
+        return stack.pop();
     }
 
 }

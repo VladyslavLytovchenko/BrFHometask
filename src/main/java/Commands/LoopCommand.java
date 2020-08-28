@@ -2,27 +2,25 @@ package Commands;
 
 import Utilities.Memory;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class LoopCommand implements Command {
-    private Memory memory;
-    private LinkedList<Command> commands;
+    private Stack<Command> commands;
 
-    public LoopCommand(Memory memory){
-        this.memory = memory;
-        this.commands = new LinkedList<>();
+    public LoopCommand(){
+        this.commands = new Stack<>();
     }
 
     @Override
-    public void execute() {
+    public void execute(Memory memory) {
         while (memory.getCurrentCell()!=0){
             for(Command command : commands){
-                command.execute();
+                command.execute(memory);
             }
         }
     }
 
-    public LinkedList<Command> getCommands() {
+    public Stack<Command> getCommands() {
         return commands;
     }
 }

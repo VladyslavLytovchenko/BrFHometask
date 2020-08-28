@@ -3,14 +3,9 @@ package Commands;
 import Utilities.Memory;
 
 public class PrintCommand implements Command {
-    private Memory memory;
-
-    public PrintCommand(Memory memory){
-        this.memory = memory;
-    }
 
     @Override
-    public void execute() {
+    public void execute(Memory memory) {
         System.out.print((char) memory.getCurrentCell());
     }
 }

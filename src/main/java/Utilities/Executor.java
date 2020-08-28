@@ -2,19 +2,20 @@ package Utilities;
 
 import Commands.Command;
 
-import java.util.List;
+import java.util.Stack;
 
 public class Executor {
-    private List<Command> commands;
+    private Stack<Command> commands;
+    private Memory memory;
 
     public Executor(String instruction){
-        commands = new Compiler(instruction, new Memory())
-                   .compile();
+        this.memory = new Memory();
+        this.commands = new Compiler(instruction).compile();
     }
 
     public void execute(){
         for (Command command : commands){
-            command.execute();
+            command.execute(memory);
         }
     }
 }
