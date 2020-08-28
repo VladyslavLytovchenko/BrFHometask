@@ -1,10 +1,14 @@
+package Commands;
+
+import Utilities.Memory;
+
 import java.util.LinkedList;
 
 public class LoopCommand implements Command {
     private Memory memory;
     private LinkedList<Command> commands;
 
-    LoopCommand(Memory memory){
+    public LoopCommand(Memory memory){
         this.memory = memory;
         this.commands = new LinkedList<>();
     }

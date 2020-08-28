@@ -1,3 +1,7 @@
+package Utilities;
+
+import Commands.*;
+
 import java.util.LinkedList;
 
 public class Compiler {

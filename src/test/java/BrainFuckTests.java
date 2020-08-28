@@ -1,3 +1,4 @@
+import Utilities.Executor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -6,8 +7,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class BrainFuckTestsTest {
-
+public class BrainFuckTests {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -23,7 +23,7 @@ public class BrainFuckTestsTest {
     }
 
     @Test
-    public void Test1(){
+    public void InnerLoops(){
         Executor executor = new Executor(">++++++++[<+++++++++>-]<.>>+>+>++>[-]+<[>[->+<<++++>]<<]>.+++++++..+++.>>+++++++.<<<<+++++++++++++.>>.+++.------.----.>>+.");
         executor.execute();
         assertEquals("Hello Uorlh!",outContent.toString());
@@ -31,20 +31,20 @@ public class BrainFuckTestsTest {
 
     @Test
     public void Test2(){
-        Executor executor = new Executor("-[--->+<]>-.[---->+++++<]>-.+.++++++++++.+[---->+<]>+++.-[--->++<]>-.++++++++++.+[---->+<]>+++.[-->+++++++<]>.++.-------------.[--->+<]>---..+++++.-[---->+<]>++.+[->+++<]>.++++++++++++..---.[-->+<]>--------.");
+        Executor executor = new Executor("--[----->+<]>----.[--->+<]>----.+++[->+++<]>++.++++++++.+++++.--------.-[--->+<]>--.+[->+++<]>+.++++++++.-[++>---<]>+.++[->+++<]>+.++.[->++++++<]>.+[->+++<]>.[--->+<]>----.+[---->+<]>+++.+[----->+<]>.--------.--[--->+<]>-.---[->++++<]>+.-------.---------.----.--[--->+<]>--.++++[->+++<]>.--[--->+<]>-.---[->++++<]>-.----.[--->+<]>-----.---[->++++<]>.+[->+++<]>++.++++++++++.------.--[--->+<]>-.+[----->+<]>.--------.--[--->+<]>-.---[->++++<]>.-----.[--->+<]>-----.---[->++++<]>.+++[->+++<]>.----.++++++++++++.-[->+++<]>.[-->+++<]>-.[--->+<]>-.++[---->+<]>++.[-->+++++++<]>.----.-------.----.--[--->+<]>--.++++[->+++<]>.");
         executor.execute();
-        assertEquals("This is pretty cool.",outContent.toString());
+        assertEquals("brainfuck gives me unease so take me to teamDev please",outContent.toString());
     }
 
     @Test
     public void Test3(){
         Executor executor = new Executor("-[----->+<]>.[--->++<]>--.[-->+++<]>++.--[--->++<]>.[-->+++<]>+.-[--->++<]>.+[->+++<]>.++++++++++++.++++++.-------.++++++.++[->+++<]>++.+++++++++++.++++++++.---------.-[->+++++<]>-.-[--->++<]>-.++++++++++.+[---->+<]>+++.+++++[->+++<]>.+++++++.+[->+++<]>.+++++++++++++.");
         executor.execute();
-        assertEquals("3 2 1 countdown is over",outContent.toString());
+        assertEquals("3 2 1 countdown is over", outContent.toString());
     }
 
     @Test
-    public void Test4(){
+    public void PICalculator(){
         Executor executor = new Executor("+++[<+>>>>>>>>++++++++++<<<<<<<-]>+++++[<+++++++++>-]+>>>>>>+[<<+++[>>[-<]<[>]<-]>>" +
                 "[>+>]<[<]>]>[[->>>>+<<<<]>>>+++>-]<[<<<<]<<<<<<<<+[->>>>>>>>>>>>[<+[->>>>+<<<<]>" +
                 ">>>>]<<<<[>>>>>[<<<<+>>>>-]<<<<<-[<<++++++++++>>-]>>>[<<[<+<<+>>>-]<[>+<-]<++<<+" +
@@ -54,11 +54,11 @@ public class BrainFuckTestsTest {
                 "<<<+<->>>>[>+<<<+++++++++<->>>-]<<<<<[>>+<<-]+<[->-<]>[>>.<<<<[+.[-]]>>-]>[>>.<<" +
                 "-]>[-]>[-]>>>[>>[<<<<<<<<+>>>>>>>>-]<<-]]>>[-]<<<[-]<<<<<<<<]");
         executor.execute();
-        assertEquals("3.14",outContent.toString());
+        assertEquals("3.14", outContent.toString());
     }
 
     @Test
-    public void Test5(){
+    public void FibonacciCounter(){
         Executor executor = new Executor("+++++++++++" +
                 ">+>>>>++++++++++++++++++++++++++++++++++++++++++++" +
                 ">++++++++++++++++++++++++++++++++<<<<<<[>[>>>>>>+>" +
@@ -75,11 +75,38 @@ public class BrainFuckTestsTest {
     }
 
     @Test
-    public void Test6(){
-        Executor executor = new Executor("--[----->+<]>----.[--->+<]>----.+++[->+++<]>++.++++++++.+++++.--------.-[--->+<]>--.+[->+++<]>+.++++++++.-[++>---<]>+.++[->+++<]>+.++.[->++++++<]>.+[->+++<]>.[--->+<]>----.+[---->+<]>+++.+[----->+<]>.--------.--[--->+<]>-.---[->++++<]>+.-------.---------.----.--[--->+<]>--.++++[->+++<]>.--[--->+<]>-.---[->++++<]>-.----.[--->+<]>-----.---[->++++<]>.+[->+++<]>++.++++++++++.------.--[--->+<]>-.+[----->+<]>.--------.--[--->+<]>-.---[->++++<]>.-----.[--->+<]>-----.---[->++++<]>.+++[->+++<]>.----.++++++++++++.-[->+++<]>.[-->+++<]>-.[--->+<]>-.++[---->+<]>++.[-->+++++++<]>.----.-------.----.--[--->+<]>--.++++[->+++<]>.");
+    public void NumbersSquares(){
+        Executor executor = new Executor("+[>+++++<-]>[<+++++>-]+<+[" +
+                ">[>+>+<<-]++>>[<<+>>-]>>>[-]++>[-]+" +
+                ">>>+[[-]++++++>>>]<<<[[<++++++++<++>>-]+<.<[>----<-]<]" +
+                "<<[>>>>>[>>>[-]+++++++++<[>-<-]+++++++++>[-[<->-]+[<<<]]<[>+<-]>]<<-]<<-" +
+                "]");
         executor.execute();
-        assertEquals("brainfuck gives me unease so take me to teamDev please",outContent.toString());
+        assertEquals("0\n" +
+                "1\n" +
+                "4\n" +
+                "9\n" +
+                "16\n" +
+                "25\n" +
+                "36\n" +
+                "49\n" +
+                "64\n" +
+                "81\n" +
+                "100\n" +
+                "121\n" +
+                "144\n" +
+                "169\n" +
+                "196\n" +
+                "225\n" +
+                "256\n" +
+                "289\n" +
+                "324\n" +
+                "361\n" +
+                "400\n" +
+                "441\n" +
+                "484\n" +
+                "529\n" +
+                "576\n" +
+                "625\n",outContent.toString());
     }
-
-
 }

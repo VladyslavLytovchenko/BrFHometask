@@ -1,3 +1,7 @@
+package Commands;
+
+import Utilities.Memory;
+
 public class DecrementCommand implements Command {
     private Memory memory;
 

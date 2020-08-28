@@ -1,3 +1,5 @@
+package Utilities;
+
 public class Memory {
     private int pointer = Short.MAX_VALUE/2;
     private byte[] memory;
